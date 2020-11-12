@@ -14,7 +14,7 @@ spec:
         app: response-engine
     spec:
       containers:
-      - image: response-engine:v1
+      - image: ebriand/response-engine
         name: response-engine
         ports:
         - protocol: TCP
