@@ -1,0 +1,5 @@
+jsonOutput: true
+jsonIncludeOutputProperty: true
+httpOutput:
+  enabled: true
+  url: "http://response-engine:2801/"
