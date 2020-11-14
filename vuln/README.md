@@ -1,10 +1,28 @@
 # How-to ?
 
+## Docker
+
 Launch vulnerable apps :
 
 ```sh
 docker-compose up -d
 ```
+
+## Kubernetes
+
+Launch minikube :
+
+```sh
+minikube start --ports 8080:8080
+```
+
+Deploy the vulnerable app :
+
+```sh
+kubectl apply -f vuln.yaml
+```
+
+## Exploit
 
 Get the exploit and launch it against the vulnerable nginx + php-fpm
 
@@ -20,5 +38,3 @@ Test with a command passing a command as the `a` parameter to the hello-world pa
 ```sh
 curl "http://localhost:8080/index.php?a=ls -al"
 ```
-
-TODO: Add kubernetes deployment
