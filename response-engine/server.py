@@ -16,13 +16,14 @@ class S(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length).decode('utf-8')
-        logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
-                str(self.path), str(self.headers), post_data)
         data = json.loads(post_data)
+        logging.info("%s\n", data["output"])
         if (data["priority"] != "Notice" and data["priority"] != "Informational" and data["priority"] != "Debug"):
            namespace = data["output_fields"]["k8s.ns.name"]
            pod = data["output_fields"]["k8s.pod.name"]
+           logging.info("Deleting pod %s in namespace %s", pod, namespace)
            v1.delete_namespaced_pod(pod, namespace)
+           logging.info("Pod %s deleted", pod)
         self._set_response()
         self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
 
