@@ -19,7 +19,7 @@ class S(BaseHTTPRequestHandler):
         logging.info("POST request,\nPath: %s\nHeaders:\n%s\n\nBody:\n%s\n",
                 str(self.path), str(self.headers), post_data)
         data = json.loads(post_data)
-        if (data["priority"] != "Notice" and data["priority"] != "Informational" and data["priority"] != "debug"):
+        if (data["priority"] != "Notice" and data["priority"] != "Informational" and data["priority"] != "Debug"):
            namespace = data["output_fields"]["k8s.ns.name"]
            pod = data["output_fields"]["k8s.pod.name"]
            v1.delete_namespaced_pod(pod, namespace)
