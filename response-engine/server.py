@@ -2,10 +2,20 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 import json
+import requests
+import os
 from kubernetes import client, config
 
+FALCO_SIDEKICK_URL = os.environ.get('FALCO_SIDEKICK_URL')
 config.load_incluster_config()
 v1 = client.CoreV1Api()
+
+def forward_request(data):
+    try:
+        if FALCO_SIDEKICK_URL != None:
+            requests.post(FALCO_SIDEKICK_URL, data=data)           
+    except:
+        logging.warn("Error sending request to %s\n%s\n", FALCO_SIDEKICK_URL, data)
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -16,6 +26,7 @@ class S(BaseHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length).decode('utf-8')
+        forward_request(post_data)
         data = json.loads(post_data)
         logging.info("%s\n", data["output"])
         if (data["priority"] != "Notice" and data["priority"] != "Informational" and data["priority"] != "Debug"):

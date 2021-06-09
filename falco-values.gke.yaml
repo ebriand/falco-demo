@@ -1,0 +1,12 @@
+ebpf:
+  enabled: true
+falco:
+  jsonOutput: true
+  jsonIncludeOutputProperty: true
+  httpOutput:
+    enabled: true
+    url: "http://response-engine:8080/"
+falcosidekick:
+  enabled: true
+  webui:
+    enabled: true
