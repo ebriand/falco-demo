@@ -33,7 +33,10 @@ spec:
     spec:
       serviceAccountName: response-engine
       containers:
-      - image: ebriand/response-engine
+      - env: 
+        - name: FALCO_SIDEKICK_URL
+          value: http://falco-falcosidekick:2801
+        image: ebriand/response-engine
         name: response-engine
         ports:
         - protocol: TCP

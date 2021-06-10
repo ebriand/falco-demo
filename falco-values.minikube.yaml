@@ -4,3 +4,7 @@ falco:
   httpOutput:
     enabled: true
     url: "http://response-engine:8080/"
+falcosidekick:
+  enabled: true
+  webui:
+    enabled: true
