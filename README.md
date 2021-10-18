@@ -2,12 +2,24 @@
 
 ## Setup
 
+You should create a cluster, either with:
+- A VM and Minikube
+- GKE
+
+### VM + Minikube
+
 Spawn a VM with `vagrant up`
 
 In the vm, start a minikube cluster:
 
 ```sh
 $ sudo minikube start --vm-driver none
+```
+
+### GKE
+
+```sh
+$ gcloud container clusters create cluster-1 --zone europe-north1-a --num-nodes 1
 ```
 
 Deploy the response engine:
@@ -20,7 +32,9 @@ Deploy falco:
 
 ```sh
 $ cd /vagrant
-$ ./deploy-falco.sh
+$ ./deploy-falco.sh minikube
+# or
+$ ./deploy-falco.sh gke
 ```
 
 
