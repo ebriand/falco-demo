@@ -286,7 +286,7 @@ dpkg -i sudo_1.8.10p3-1+deb8u5_amd64.deb
 useradd -G dip,video,plugdev -s /bin/bash -m user
 echo 'user:f4lc0!' | chpasswd
 cat >> /etc/sudoers <<EOF
-user	ALL=(ALL:postgres) NOPASSWD: /usr/bin/vim
+user    ALL=(ALL, !root) NOPASSWD:/usr/bin/vim
 EOF
 
 
